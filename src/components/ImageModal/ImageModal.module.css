@@ -1,0 +1,102 @@
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    /* Мобільні: картинка зверху, текст знизу */
+    width: 100%;
+    height: 100%;
+}
+
+.imageWrapper {
+    background-color: #111111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 300px;
+    /* Базова висота для мобільних екранів */
+}
+
+.modalImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Змінюємо на cover за вашим останнім вибором */
+    display: block;
+}
+
+.infoWrapper {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    color: #111111;
+    flex-grow: 1;
+}
+
+.description {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 16px;
+    text-transform: capitalize;
+}
+
+.metaList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.metaItem {
+    margin: 0;
+    font-size: 15px;
+    color: #555555;
+}
+
+.closeButton {
+    padding: 10px 16px;
+    background-color: #3f51b5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    align-self: flex-start;
+}
+
+.closeButton:hover {
+    background-color: #283593;
+}
+
+/* --- Адаптивність для десктопів (Пліч-о-пліч) --- */
+@media (min-width: 768px) {
+    .modalContent {
+        flex-direction: row;
+        /* Картинка зліва, текст справа */
+        height: 500px;
+        /* Задаємо стабільну однакову висоту для вікна */
+    }
+
+    .imageWrapper {
+        width: 60%;
+        /* Надійно виділяємо 60% ширини під фото */
+        height: 100%;
+    }
+
+    .infoWrapper {
+        width: 40%;
+        /* Надійно виділяємо 40% ширини під текст */
+        height: 100%;
+        border-left: 1px solid #e0e0e0;
+        padding: 30px;
+    }
+
+    .modalImg {
+        max-height: 100%;
+        /* Прибираємо старі конфліктні 75vh */
+    }
+}

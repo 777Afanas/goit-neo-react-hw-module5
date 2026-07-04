@@ -1,0 +1,21 @@
+.card {
+  width: 100%;
+  overflow: hidden;
+  display: block;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  /* Фіксуємо висоту всіх фото в один рівний ряд */
+  object-fit: cover;
+  /* Картинка заповнює простір без розтягування та деформацій */
+  cursor: pointer;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.card img:hover {
+  transform: scale(1.03);
+  /* Легке збільшення при наведенні */
+}
