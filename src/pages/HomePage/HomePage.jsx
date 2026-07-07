@@ -1,84 +1,39 @@
+import { useEffect, useState } from "react";
+import Loader from "../../components/Loader/Loader";
+import MovieList from "../../components/MovieList/MovieList";
+import { getTrendingMovies } from "../../api/movies-api";
+
 
 const HomePage = () => {
+    const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getTrendingMovies();
+        setMovies(data);
+      } catch {
+        setError(true)
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
-    <div>HomePage</div>
+    <>
+      <h2>Trending today</h2>
+      {isLoading && <Loader />}
+      {error && <p>HTTP error! Reload page, please...</p>}
+      {movies.length > 0 && <MovieList movies={movies} />}
+    </>
   )
 }
 
 export default HomePage
 
-// const HomePage = () => {
-//   const [images, setImages] = useState([]);
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [error, setError] = useState(false);
-//   const [page, setPage] = useState(1);
-//   const [searchValue, setSearchValue] = useState("");
-//   const [modalData, setModalData] = useState(null);
-
-// useEffect(() => {
-//   getTrendingMovies();
-// }, []);
-
-//   useEffect(() => {
-//     if (!searchValue.trim()) return;
-
-//     const fetchImages = async () => {
-//       try {
-//         setIsLoading(true);
-//         const data = await getTrendingMovies();
-//         setImages((prevState) => [...prevState, ...data]);
-//         toast.success("Images done...");
-//       } catch {
-//         setError(true);
-//         toast.error("Oops.. Something wrong.");
-//       } finally {
-//         setIsLoading(false);
-//       }
-//     };
-//     fetchImages();
-//   }, [searchValue, page]);
-
-//   const handleSearch = async (searchQuery) => {
-//     setSearchValue(searchQuery);
-//     setPage(1);
-//     setImages([]);
-//   };
-
-//   const handleLoadMore = async () => {
-//     setPage(page + 1);
-//   };
-
-//   const openModal = (ImageData) => {
-//     setModalData(ImageData);
-//   };
-
-//   const closeModal = () => {
-//     setModalData(null);
-//   };
-
-//   return (
-//     <Section>
-//       <Container>
-//         <SearchBar onSubmit={handleSearch} />
-//         {error && (
-//           <ErrorMessage message={`Oops... Something wrong. Pls reload page.`} />
-//         )}
-//         {images?.length > 0 && (
-//           <ImageGallery items={images} onImageClick={openModal} />
-//         )}
-//         {images?.length > 0 && (
-//           <LoadMoreBtn onClick={handleLoadMore} isLoading={isLoading} />
-//         )}
-//         {isLoading && images?.length === 0 && (
-//           <Loader message={`Loading images...`} />
-//         )}
-
-//         <ImageModal
-//           isOpen={modalData !== null}
-//           onClose={closeModal}
-//           image={modalData}
-//         />
-//       </Container>
-//     </Section>
-//   );
-// };
+ 
