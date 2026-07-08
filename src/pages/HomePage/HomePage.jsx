@@ -3,20 +3,21 @@ import Loader from "../../components/Loader/Loader";
 import MovieList from "../../components/MovieList/MovieList";
 import { getTrendingMovies } from "../../api/movies-api";
 
-
 const HomePage = () => {
-    const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
+      setError(false);
+
       try {
         const data = await getTrendingMovies();
         setMovies(data);
       } catch {
-        setError(true)
+        setError(true);
       } finally {
         setIsLoading(false);
       }
@@ -29,11 +30,9 @@ const HomePage = () => {
       <h2>Trending today</h2>
       {isLoading && <Loader />}
       {error && <p>HTTP error! Reload page, please...</p>}
-      {movies.length > 0 && <MovieList movies={movies} />}
+      {!isLoading && !error && movies.length > 0 && <MovieList movies={movies} />}
     </>
-  )
-}
+  );
+};
 
-export default HomePage
-
- 
+export default HomePage;
