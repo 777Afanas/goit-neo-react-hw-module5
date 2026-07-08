@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
-import { getCast } from "../../api/movies-api";
+import { getMovieCredits } from "../../api/movies-api";
 import styles from "./MovieCast.module.css";
 
 
@@ -18,7 +18,7 @@ const MovieCast = () => {
     const getData = async () => {
       setIsLoading(true);
       try {
-        const data = await getCast(movieId);
+        const data = await getMovieCredits(movieId);
         setCast(data);
       } catch {
         setError(true)

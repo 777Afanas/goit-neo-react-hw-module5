@@ -6,7 +6,7 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom";
-import { getMovieById } from "../../api/movies-api";
+import { getMovieDetails } from "../../api/movies-api";
 import Loader from "../../components/Loader/Loader";
 import styles from "./MovieDetailsPage.module.css";
 import clsx from "clsx";
@@ -31,7 +31,7 @@ const MovieDetailsPage = () => {
     const getData = async () => {
       setIsLoading(true);
       try {
-        const data = await getMovieById(movieId);
+        const data = await getMovieDetails(movieId);
         setMovie(data);
       } catch {
         setError(true);
@@ -54,7 +54,7 @@ const MovieDetailsPage = () => {
           <img
             src={
               movie.poster_path
-                ? `https://image.tmbd.org/t/p/w500/${movie.poster_path}`
+                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
                 : defaultPng
             }
             alt={movie.title || "Default title"}
@@ -63,7 +63,7 @@ const MovieDetailsPage = () => {
           <div className={styles.divDetails}>
             <h2 className={styles.details}>
               {movie.title || movie.original_title} (
-              {movie.release_date?.slice(0, 4)} || "Unknown year")
+              {movie.release_date?.slice(0, 4) || "Unknown year"})
             </h2>
             <p className={styles.details}>
               User score: {Math.round(movie.vote_average * 10)}%
@@ -72,7 +72,8 @@ const MovieDetailsPage = () => {
             <p className={styles.details}>{movie.overview}</p>
             <h3 className={styles.details}>Genres</h3>
             <p className={styles.details}>
-              {movie.genres?.map((genre) => genre.name).join(", ") || "No genres available"}
+              {movie.genres?.map((genre) => genre.name).join(", ") ||
+                "No genres available"}
             </p>
           </div>
         </div>
@@ -86,7 +87,7 @@ const MovieDetailsPage = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="reviwes" className={linkClass}>
+          <NavLink to="reviews" className={linkClass}>
             Reviews
           </NavLink>
         </li>
