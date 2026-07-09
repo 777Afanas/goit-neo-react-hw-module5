@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import styles from "./MovieList.module.css";
 
 const MovieList = ({ movies }) => {
-  const location = useLocation();
+  const MovieListLocation = useLocation();
 
   return (
     <ul className={styles.list}>
@@ -12,7 +12,7 @@ const MovieList = ({ movies }) => {
             <Link
               className={styles.link}
               to={`/movies/${id}`}
-              state={{ from: location }}
+              state={{ from: MovieListLocation }}
             >
               {title}
             </Link>

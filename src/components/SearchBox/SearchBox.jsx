@@ -8,7 +8,7 @@ const SearchSchema = Yup.object().shape({
 });
 
 const SearchBox = ({ onHandlerSubmit }) => {
-  const searchInputId = useId();
+  const searchBoxId = useId();
 
   const initialValues = {
     query: "",
@@ -28,14 +28,14 @@ const SearchBox = ({ onHandlerSubmit }) => {
       <Form className={styles.form}>
         <div className={styles.searchBar}>
           {/* 3. Додаємо семантичний тег label та зв'язуємо його через htmlFor */}
-          <label htmlFor={searchInputId} className={styles.visuallyHidden}>
+          <label htmlFor={searchBoxId} className={styles.visuallyHidden}>
             Search movies
           </label>
 
           <div className={styles.inputWrapper}>
             {/* 4. Передаємо згенерований ID в сам компонент Field */}
             <Field
-              id={searchInputId}
+              id={searchBoxId}
               name="query"
               type="text"
               className={styles.input}

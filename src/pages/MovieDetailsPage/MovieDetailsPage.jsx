@@ -21,8 +21,9 @@ const MovieDetailsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const location = useLocation();
-  // const goBack = useRef(location?.state?.from ?? "/");
+  const MovieDetailsPageLocation = useLocation();  // MovieListLocation
+  const backLinkHref = MovieDetailsPageLocation.state?.from ?? "/"; 
+  
 
   const defaultPng =
     "https://cdn.pixabay.com/photo/2016/05/28/05/40/question-mark-1421017_1280.png";
@@ -42,11 +43,10 @@ const MovieDetailsPage = () => {
     getData();
   }, [movieId]);
 
-  const backLinkHref = location.state?.from ?? "/";
-
+  
   return (
     <div>
-      <Link to={backLinkHref}>Go back</Link>
+      <Link to={ backLinkHref }>Go back</Link>
       {isLoading && <Loader />}
       {error && <p>Something is wrong! Reload...</p>}
       {movie && (
@@ -82,12 +82,12 @@ const MovieDetailsPage = () => {
       <p>Additional information</p>
       <ul>
         <li>
-          <NavLink to="cast" className={linkClass}>
+          <NavLink to="cast" state={{ from: backLinkHref }} className={linkClass}>
             Casts
           </NavLink>
         </li>
         <li>
-          <NavLink to="reviews" className={linkClass}>
+          <NavLink to="reviews" state={{ from: backLinkHref }} className={linkClass}>
             Reviews
           </NavLink>
         </li>
